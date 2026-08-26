@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
     "start": "node dist/index.js",
-    "vercel-build": "prisma generate && prisma migrate deploy && npm run build",
+    "pre-build": "npm install && prisma generate && prisma migrate deploy && npm run build",
     "prisma:generate": "prisma generate",
     "build": "tsc",
     "dev-vercel": "tsx watch src/server.ts"

@@ -9,19 +9,19 @@ import { router } from "../routes/router";
 const app = fastify();
 
 // CORS
-await app.register(fastifyCors, {
+app.register(fastifyCors, {
   origin: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
 
 // JWT
-await app.register(fastifyJwt, {
+app.register(fastifyJwt, {
   secret: process.env.JWT_SECRET || "chave_de_emergencia_caso_env_falhe",
 });
 
 await app.register(fastifyMultipart);
 
-await app.register(fastifyStatic, {
+app.register(fastifyStatic, {
   root: path.join(__dirname, "../uploads"),
   prefix: "/uploads/",
 });
@@ -38,7 +38,7 @@ app.decorate("authenticate", async function (request: any, reply: any) {
 });
 
 // ROTAS
-await app.register(router);
+app.register(router);
 
 // SERVIDOR EM PRODUÇÃO
 export default async function handler(req: any, res: any) {

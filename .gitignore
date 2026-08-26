@@ -1,0 +1,11 @@
+node_modules
+/src/generated/prisma
+/prisma/migrations/*
+/uploads/**
+/arquivos
+*.env
+*-lock.json
+.vscode/
+.claude/
+.agents/
+.windsurf/

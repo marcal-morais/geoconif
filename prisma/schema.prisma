@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Professor {
+  id        Int        @id @default(autoincrement()) @map("id_professor")
+  nome      String
+  email     String     @unique
+  senha     String?
+  tipo      String
+  resetToken String? @map("reset_token")
+  resetTokenExpira DateTime? @map("reset_token_expira") 
+  materiais Material[]
+  favoritos Favorito[]
+
+  @@map("professores")
+}
+
+model Favorito {
+  id         Int      @id @default(autoincrement()) @map("id_favorito")
+  idMaterial Int      @map("id_material")
+  idUsuario  Int?      @map("id_usuario")
+
+  material   Material @relation(fields: [idMaterial], references: [id])
+  usuario    Professor? @relation(fields: [idUsuario], references: [id])
+
+  @@map("favoritos")
+}
+
+model Disciplina {
+  id        Int        @id @default(autoincrement()) @map("id_disciplina")
+  nome      String
+  createdAt DateTime   @default(now())
+  materiais Material[]
+
+
+  @@map("disciplinas")
+}
+
+model Material {
+  id             Int        @id @default(autoincrement()) @map("id_material")
+  titulo         String
+  descricao      String
+  palavrasChave  String 
+  url            String
+  status         String
+  motivoRejeicao String?
+  createdAt      DateTime   @default(now())
+  professorId    Int
+  disciplinaId   Int
+  favoritos      Favorito[]
+  disciplina     Disciplina @relation(fields: [disciplinaId], references: [id])
+  professor      Professor  @relation(fields: [professorId], references: [id])
+
+  @@map("materiais")
+}

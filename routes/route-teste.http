@@ -1,0 +1,142 @@
+@baseUrl = http://localhost:3333
+@authToken = Bearer {{login.response.body.token}}
+
+GET http://localhost:3333/professores
+
+### listar por id
+GET http://localhost:3333/professores/6
+
+### cadastrat professor
+POST http://localhost:3333/professores
+Content-Type: application/json
+
+{
+    "nome": "Bianca",
+    "email": "bianca.gabriely@escolar.ifrn.edu.br",
+    "senha": "11062008Aluna#",
+    "tipo": "comum"
+}
+
+### login
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{ 
+
+"email" : "biancagabriely.santos@gmail.com",
+"senha" : "11062008Aluna#"
+
+}
+
+### rota de segurança
+GET {{baseUrl}}/me
+Authorization: {{authToken}}
+
+### editar professor
+PUT http://localhost:3333/professores/3
+Content-Type: application/json
+
+{
+    "nome": "ana"
+}
+
+### remover professor
+DELETE http://localhost:3333/professores/3
+
+### listar favotiros
+GET http://localhost:3333/favoritos
+
+### listar por id
+GET http://localhost:3333/favoritos/2
+
+### cadastrat favorito
+POST http://localhost:3333/favoritos
+Content-Type: application/json
+
+{
+  "id_material": 6
+}
+
+### remover favoritos
+DELETE http://localhost:3333/favoritos/1
+
+### cadastrar material
+POST http://localhost:3333/materiais
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="titulo"
+
+Introdução a pedra
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="descricao"
+
+Material sobre pedra
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="disciplinaId"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="professorId"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="aula1.pdf"
+Content-Type: application/pdf
+
+< ./arquivos/aula1.pdf
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### listar materiais
+GET http://localhost:3333/materiais
+
+### listar materiais por id
+GET http://localhost:3333/materiais/6
+
+### atualizar materiais
+PUT http://localhost:3333/materiais/6
+Content-Type: application/json
+
+{ 
+
+    "titulo": "Mineralogia",
+    "descricao": "pedras",
+    "disciplinaId": 1
+
+}
+
+### deletar materiais
+DELETE http://localhost:3333/materiais/6
+
+### criar disciplinas
+POST http://localhost:3333/disciplinas
+Content-Type: application/json
+
+{
+
+    "nome" : "Geologia Geral",
+    "professorId": 1
+
+}
+
+### listar disciplinas
+GET http://localhost:3333/disciplinas
+
+### listar disciplinas por id
+GET http://localhost:3333/disciplinas/1
+
+### atualizar disciplinas
+PUT http://localhost:3333/disciplinas/1
+Content-Type: application/json
+
+{ 
+
+    "nome": "Topografia"
+
+}
+
+### deletar disciplinas
+DELETE http://localhost:3333/disciplinas/1

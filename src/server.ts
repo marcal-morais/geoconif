@@ -40,25 +40,18 @@ app.decorate("authenticate", async function (request: any, reply: any) {
 // ROTAS
 app.register(router);
 
-// SERVIDOR EM PRODUÇÃO
-export default async function handler(req: any, res: any) {
-  await app.ready();
-  app.server.emit("request", req, res);
-}
+// SERVIDOR
 
-// SERVIDOR EM DESENVOLVIMENTO
-if (process.env.NODE_ENV !== "production") {
-  app.listen(
-    {
-      port: 3333,
-    },
-    (err, address) => {
-      if (err) {
-        console.log(err);
-        process.exit(1);
-      }
+app.listen(
+  {
+    port: 3000,
+  },
+  (err, address) => {
+    if (err) {
+      console.log(err);
+      process.exit(1);
+    }
 
-      console.log(`Servidor rodando em ${address}`);
-    },
-  );
-}
+    console.log(`Servidor rodando em ${address}`);
+  },
+);

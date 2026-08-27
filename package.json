@@ -6,11 +6,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "pre-build": "npm install && prisma generate && prisma migrate deploy && npm run build",
     "prisma:generate": "prisma generate",
-    "build": "tsc",
-    "dev-vercel": "tsx watch src/server.ts"
+    "build": "tsup src/server.ts --format esm --out-dir dist"
   },
   "keywords": [],
   "author": "",

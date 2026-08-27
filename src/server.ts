@@ -6,6 +6,9 @@ import fastifyCors from "@fastify/cors";
 import path from "path";
 import { router } from "../routes/router";
 
+const port = 3000;
+const host = "RENDER" in process.env ? `0.0.0.0` : `localhost`;
+
 const app = fastify();
 
 // CORS
@@ -42,16 +45,11 @@ app.register(router);
 
 // SERVIDOR
 
-app.listen(
-  {
-    port: 3000,
-  },
-  (err, address) => {
-    if (err) {
-      console.log(err);
-      process.exit(1);
-    }
+app.listen({ host: host, port: port }, (err, address) => {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
 
-    console.log(`Servidor rodando em ${address}`);
-  },
-);
+  console.log(`Servidor rodando em ${address}`);
+});
